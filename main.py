@@ -25,8 +25,8 @@ def get_date_time(place):
     if response.status_code == requests.codes.ok:
         if response.json()["states"][place]["enabled_at"] == None:
             time = response.json()["states"][place]["disabled_at"][11:19]
-            date = response.json()["states"]["м. Київ"]["disabled_at"][0:10]
-            if time[0:2] in ["21", "22", "23", "24"]:
+            date = response.json()["states"][place]["disabled_at"][0:10]
+            if time[0:2] == ["21", "22", "23", "24"]:
                 date = datetime.datetime.strptime(date, "%Y-%m-%d")
                 date += datetime.timedelta(days=1)
                 date = date.strftime("%Y-%m-%d")
@@ -36,8 +36,8 @@ def get_date_time(place):
             return f"Остання тривога була {date} в {time}"
         else:
             time = response.json()["states"][place]["enabled_at"][11:19]
-            date = response.json()["states"]["м. Київ"]["enabled_at"][0:10]
-            if time[0:2] in ["21", "22", "23", "24"]:
+            date = response.json()["states"][place]["enabled_at"][0:10]
+            if time[0:2] == ["21", "22", "23", "24"]:
                 date = datetime.datetime.strptime(date, "%Y-%m-%d")
                 date += datetime.timedelta(days=1)
                 date = date.strftime("%Y-%m-%d")
