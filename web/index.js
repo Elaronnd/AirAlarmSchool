@@ -1,9 +1,9 @@
 async function getDataFromPythonForce(place) {
     if (await eel.get_data_force(place)() === true) {
-        document.getElementById("stat").innerText = "На даний момент в Києві повітряна тривога";
+        document.getElementById("stat").innerText = `На даний момент в ${place} повітряна тривога`;
         document.getElementById("stat").style.color = "red";
     } else if(await eel.get_data_force(place)() === false) {
-        document.getElementById("stat").innerText = "На даний момент в Києві немає повітряної тривоги";
+        document.getElementById("stat").innerText = `На даний момент в ${place} немає повітряної тривоги`;
         document.getElementById("stat").style.color = "green";
     } else if (await eel.get_data_force(place)() === "Помилка з api") {
         document.getElementById("stat").innerText = "Помилка з api";
@@ -14,6 +14,7 @@ async function getDataFromPythonForce(place) {
         document.getElementById("stat").style.color = "red";
     }
     document.getElementById("date").innerText = await eel.get_date_time(place)();
+    document.getElementById("lesson").innerText = await eel.lesson(place)();
 }
 
 document.getElementById("button").addEventListener("click", async()=> {
