@@ -1,3 +1,5 @@
+var icon = document.getElementById("change");
+
 async function getDataFromPythonForce(place) {
     if (await eel.get_data_force(place)() === true) {
         document.getElementById("stat").innerText = `На даний момент в ${place} повітряна тривога`;
@@ -25,6 +27,20 @@ document.getElementById("button").addEventListener("click", async()=> {
         document.getElementById("button").disabled = false;
     }, 5000);
 })
+
+icon.addEventListener("click", function(){
+    document.body.classList.toggle("dark-theme");
+    if (document.body.classList.contains("dark-theme")) {
+        icon.src = "images/sun.png"
+    } else {
+        icon.src = "images/moon.png"
+    }
+});
+
+if (`${new Date().getHours()}` > 18 || 7 > `${new Date().getHours()}` ) {
+    document.body.classList.toggle("dark-theme");
+    icon.src = "images/sun.png"
+}
 
 getDataFromPythonForce("м. Київ");
 setInterval(() => getDataFromPythonForce("м. Київ"), 5000);
