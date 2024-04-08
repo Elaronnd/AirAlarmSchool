@@ -11,6 +11,12 @@ body {
 }
 .version{
   position: absolute;
+  bottom: 30px;
+  left: 0;
+  color: var(--secondary-color)
+}
+.powered{
+  position: absolute;
   bottom: 0;
   left: 0;
   color: var(--secondary-color)
