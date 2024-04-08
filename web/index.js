@@ -1,27 +1,46 @@
-async function getDataFromPythonForce() {
-    document.getElementById("myele").innerText = await eel.get_data_force()();
-    document.getElementById("date").innerText = await eel.get_date_time()();
-    if (await eel.get_data_force()() === "[info] На даний момент в Києві повітряна тривога") {
-      var li = document.getElementById("myele");
-      li.style.color = "red";
-}   else {
-      var li = document.getElementById("myele");
-      li.style.color = "green";
-  }
+var icon = document.getElementById("change");
+
+async function getDataFromPythonForce(place) {
+    if (await eel.get_data_force(place)() === true) {
+        document.getElementById("stat").innerText = `На даний момент в ${place} повітряна тривога`;
+        document.getElementById("stat").style.color = "red";
+    } else if(await eel.get_data_force(place)() === false) {
+        document.getElementById("stat").innerText = `На даний момент в ${place} немає повітряної тривоги`;
+        document.getElementById("stat").style.color = "green";
+    } else if (await eel.get_data_force(place)() === "Помилка з api") {
+        document.getElementById("stat").innerText = "Помилка з api";
+        document.getElementById("stat").style.color = "red";
+    }
+    else {
+        document.getElementById("stat").innerText = "Невідома помилка";
+        document.getElementById("stat").style.color = "red";
+    }
+    document.getElementById("date").innerText = await eel.get_date_time(place)();
+    document.getElementById("lesson").innerText = await eel.lesson(place)();
 }
 
-document.getElementById("mybtn").addEventListener("click", async()=> {
-    getDataFromPythonForce();
+document.getElementById("button").addEventListener("click", async()=> {
+    getDataFromPythonForce("м. Київ");
+    document.getElementById("button").disabled = true;
+
+    setTimeout(function () {
+        document.getElementById("button").disabled = false;
+    }, 5000);
 })
 
-function startCooldown() {
-  document.getElementById("mybtn").disabled = true;
+icon.addEventListener("click", function(){
+    document.body.classList.toggle("dark-theme");
+    if (document.body.classList.contains("dark-theme")) {
+        icon.src = "images/sun.png"
+    } else {
+        icon.src = "images/moon.png"
+    }
+});
 
-  setTimeout(function () {
-    document.getElementById("mybtn").disabled = false;
-  }, 5000);
+if (`${new Date().getHours()}` > 18 || 7 > `${new Date().getHours()}` ) {
+    document.body.classList.toggle("dark-theme");
+    icon.src = "images/sun.png"
 }
 
-document.getElementById("mybtn").addEventListener("click", startCooldown);
-getDataFromPythonForce();
-setInterval(getDataFromPythonForce, 5000);
+getDataFromPythonForce("м. Київ");
+setInterval(() => getDataFromPythonForce("м. Київ"), 5000);
