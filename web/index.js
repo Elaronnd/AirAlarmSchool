@@ -1,4 +1,5 @@
 var icon = document.getElementById("change");
+var github = document.getElementById("github");
 
 async function getDataFromPythonForce(place) {
     if (await eel.get_data_force(place)() === true) {
@@ -7,7 +8,7 @@ async function getDataFromPythonForce(place) {
     } else if(await eel.get_data_force(place)() === false) {
         document.getElementById("stat").innerText = `На даний момент в ${place} немає повітряної тривоги`;
         document.getElementById("stat").style.color = "green";
-    } else if (await eel.get_data_force(place)() === "Помилка з api") {
+    } else if (await eel.get_data_force(place)() === null) {
         document.getElementById("stat").innerText = "Помилка з api";
         document.getElementById("stat").style.color = "red";
     }
@@ -15,12 +16,12 @@ async function getDataFromPythonForce(place) {
         document.getElementById("stat").innerText = "Невідома помилка";
         document.getElementById("stat").style.color = "red";
     }
-    document.getElementById("date").innerText = await eel.get_date_time(place)();
-    document.getElementById("lesson").innerText = await eel.lesson(place)();
+    document.getElementById("date").innerText = await eel.get_date_time()();
+    document.getElementById("lesson").innerText = await eel.lesson()();
 }
 
 document.getElementById("button").addEventListener("click", async()=> {
-    getDataFromPythonForce("м. Київ");
+    getDataFromPythonForce(place="м. Київ");
     document.getElementById("button").disabled = true;
 
     setTimeout(function () {
@@ -32,15 +33,18 @@ icon.addEventListener("click", function(){
     document.body.classList.toggle("dark-theme");
     if (document.body.classList.contains("dark-theme")) {
         icon.src = "images/sun.png"
+        github.src = "images/github_purple.png"
     } else {
         icon.src = "images/moon.png"
+        github.src = "images/github_black.png"
     }
 });
 
 if (`${new Date().getHours()}` > 18 || 7 > `${new Date().getHours()}` ) {
     document.body.classList.toggle("dark-theme");
     icon.src = "images/sun.png"
+    github.src = "images/github_purple.png"
 }
 
-getDataFromPythonForce("м. Київ");
-setInterval(() => getDataFromPythonForce("м. Київ"), 5000);
+getDataFromPythonForce(place="м. Київ");
+setInterval(() => getDataFromPythonForce(place="м. Київ"), 5000);

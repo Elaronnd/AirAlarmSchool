@@ -1,7 +1,23 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  list-style: none;
+  text-decoration: none;
+  transition: all .5s;
+}
 #change{
   position: absolute;
   right: 0;
   top: 0;
+  width: 30px;
+  cursor: pointer;
+}
+#github{
+  position: absolute;
+  right: 0;
+  bottom: 0;
   width: 30px;
   cursor: pointer;
 }
