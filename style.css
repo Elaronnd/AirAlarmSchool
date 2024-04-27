@@ -1,0 +1,56 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  list-style: none;
+  text-decoration: none;
+  transition: all .5s;
+}
+#change{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  cursor: pointer;
+}
+#github{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  cursor: pointer;
+}
+body {
+  background-color: var(--primary-color);
+  transition: 0.3s;
+}
+.version{
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  color: var(--secondary-color)
+}
+.powered{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: var(--secondary-color)
+}
+:root{
+  --primary-color: #FFFFFF;
+  --secondary-color: #000000;
+}
+.dark-theme{
+  --primary-color: #000000;
+  --secondary-color: #FFFFFF;
+}
+#stat{
+  color: var(--secondary-color)
+}
+#date{
+  color: var(--secondary-color)
+}
+#lesson{
+  color: var(--secondary-color)
+}
